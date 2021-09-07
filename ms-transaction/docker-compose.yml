@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  app:
+    build: 
+      args: 
+        user: lucaspay
+        uid: 1001
+      context: ./.docker
+      dockerfile: Dockerfile
+    image: ms-transaction
+    container_name: transaction-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes: 
+      - ./src:/var/www
+  db:
+    image: mysql:5.7
+    container_name: transaction-db
+    restart: unless-stopped
+    tty: true
+    ports: 
+      - 3007:3006
+    environment: 
+      MYSQL_DATABASE: lucaspay_db
+      MYSQL_ROOT_PASSWORD: root
+    volumes: 
+      - ./.docker/mysql/my.cnf:/etc/mysql/my.cnf
+  nginx:
+    image: nginx:1.19.9-alpine
+    container_name: transaction-nginx
+    restart: unless-stopped
+    ports: 
+      - 8004:80
+    depends_on: 
+      - app
+    volumes: 
+      - ./src:/var/www
+      - ./.docker/nginx:/etc/nginx/conf.d
