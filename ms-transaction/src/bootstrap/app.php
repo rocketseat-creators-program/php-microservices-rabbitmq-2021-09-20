@@ -92,6 +92,7 @@ $app->configure('app');
 */
 
 $app->register(App\Providers\TransactionProvider::class);
+$app->register(App\Providers\UserProvider::class);
 
 /*
 |--------------------------------------------------------------------------
