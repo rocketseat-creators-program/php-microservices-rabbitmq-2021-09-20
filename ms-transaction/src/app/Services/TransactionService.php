@@ -12,7 +12,7 @@ class TransactionService implements TransactionServiceInterface
     {
     }
 
-    public function process(array $data)
+    public function process(array $data): string
     {
         $transaction = $this->repository->persist($data);
 

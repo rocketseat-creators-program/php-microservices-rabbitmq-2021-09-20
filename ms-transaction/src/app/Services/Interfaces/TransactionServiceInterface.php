@@ -4,5 +4,5 @@ namespace App\Services\Interfaces;
 
 interface TransactionServiceInterface
 {
-    public function process(array $data);
+    public function process(array $data): string;
 }

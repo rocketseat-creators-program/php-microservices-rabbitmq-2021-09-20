@@ -11,7 +11,7 @@ class TransactionRepository implements TransactionRepositoryInterface
     {
     }
 
-    public function persist(array $data)
+    public function persist(array $data): Transaction
     {
         return $this->model->create($data);
     }
