@@ -61,7 +61,7 @@ PS: o mesmo vale para esse arquivo em relação à permissão para execução ve
 
 ## Versão final do projeto
 
-Para acessar a versão final do projeto (após as implementações feitas no vídeo), acesse a branch [final](/tree/final).
+Para acessar a versão final do projeto (após as implementações feitas no vídeo), acesse a branch [final](https://github.com/lucascavalcante/ec-microservices-rabbitmq/tree/final).
 
 ## Autor
 
