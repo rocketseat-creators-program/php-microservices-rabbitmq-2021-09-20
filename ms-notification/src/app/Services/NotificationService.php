@@ -28,6 +28,7 @@ class NotificationService implements NotificationServiceInterface
 
         $payload = [
             'send_to' => $data['email'],
+            'transaction' => $data['transaction'],
             'message' => $message
         ];
 
