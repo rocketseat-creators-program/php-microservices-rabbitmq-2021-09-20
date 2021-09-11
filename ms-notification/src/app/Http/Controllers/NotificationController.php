@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\Interfaces\NotificationServiceInterface;
+use Exception;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
@@ -13,10 +14,11 @@ class NotificationController extends Controller
 
     public function send(Request $request)
     {
-        $notification = $this->service->processMessage($request->all());
-
-        return response()->json([
-            'data' => $notification
-        ]);
+        try {
+            $notification = $this->service->processMessage($request->all());
+            return response()->json(['data' => $notification]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
     }
 }
