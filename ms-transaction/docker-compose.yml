@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  app:
+  app-transaction:
     build: 
       args: 
         user: lucaspay
@@ -26,14 +26,14 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes: 
       - ./.docker/mysql/my.cnf:/etc/mysql/my.cnf
-  nginx:
+  nginx-transaction:
     image: nginx:1.19.9-alpine
     container_name: transaction-nginx
     restart: unless-stopped
     ports: 
       - 8004:80
     depends_on: 
-      - app
+      - app-transaction
     volumes: 
       - ./src:/var/www
       - ./.docker/nginx:/etc/nginx/conf.d

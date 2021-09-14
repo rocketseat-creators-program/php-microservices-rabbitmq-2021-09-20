@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  app:
+  app-notification:
     build: 
       args: 
         user: lucaspay
@@ -14,14 +14,14 @@ services:
     working_dir: /var/www/
     volumes: 
       - ./src:/var/www
-  nginx:
+  nginx-notification:
     image: nginx:1.19.9-alpine
     container_name: notification-nginx
     restart: unless-stopped
     ports: 
       - 8005:80
     depends_on: 
-      - app
+      - app-notification
     volumes: 
       - ./src:/var/www
       - ./.docker/nginx:/etc/nginx/conf.d
