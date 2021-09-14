@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pcntl \
     && docker-php-ext-install bcmath \
     && docker-php-ext-install gd \
+    && docker-php-ext-install sockets \
     && docker-php-source delete
 
 # Clear cache
