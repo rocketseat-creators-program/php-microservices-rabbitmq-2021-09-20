@@ -47,8 +47,8 @@ Para acessar o serviço `ms-queues`:
 ```
 http://127.0.0.1:15672
 
-User: guest
-Pass: guest
+User: admin
+Pass: admin
 ```
 
 ## Derrubando todos os serviços
