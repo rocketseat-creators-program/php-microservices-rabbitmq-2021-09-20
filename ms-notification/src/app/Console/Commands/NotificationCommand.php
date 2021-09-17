@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use App\Brokers\Interfaces\BrokerInterface;
+use App\Services\Interfaces\NotificationServiceInterface;
 
 class NotificationCommand extends Command
 {
@@ -22,8 +24,10 @@ class NotificationCommand extends Command
      */
     protected $description = "Consume all notification in the queue";
 
-    public function __construct()
-    {
+    public function __construct(
+        private NotificationServiceInterface $notificationService,
+        private BrokerInterface $messageBroker
+    ) {
         parent::__construct();
     }
 
@@ -34,24 +38,14 @@ class NotificationCommand extends Command
      */
     public function handle()
     {
-        $connection = new AMQPStreamConnection('172.26.0.1', 5672, 'admin', 'admin');
-        $channel = $connection->channel();
-
-        $channel->queue_declare('notification_queue2', false, false, false, false);
-
         echo " [*] Waiting for messages. To exit press CTRL+C\n";
 
         $callback = function ($msg) {
-            echo "Printing: " . $msg;
+            echo "Printing: " . $msg->body . "\n";
+            $this->notificationService->send($msg->body);
         };
 
-        $channel->basic_consume('notification_queue2', '', false, true, false, false, $callback);
-
-        while ($channel->is_consuming()) {
-            $channel->wait();
-        }
-
-        $channel->close();
-        $connection->close();
+        $this->messageBroker->receiveFromQueue('notification_queue', $callback);
+        $this->messageBroker->wait();
     }
 }
