@@ -32,13 +32,13 @@ class NotificationService implements NotificationServiceInterface
             'message' => $message
         ];
 
-        $this->send($payload);
+        $this->send(json_encode($payload));
 
         return Messages::NOTIFICATION_SUCCESSFULLY;
     }
 
-    public function send(array $payload): void
+    public function send(string $payload): void
     {
-        $this->log->info(json_encode($payload));
+        $this->log->info($payload);
     }
 }
